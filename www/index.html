@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#b8322a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>Hanzi Cards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+
+    <!-- STUDY -->
+    <section id="view-study" class="view active">
+      <header class="stats">
+        <div><b id="st-due">0</b><span>due</span></div>
+        <div><b id="st-new">0</b><span>new</span></div>
+        <div><b id="st-known">0</b><span>known</span></div>
+        <div><b id="st-streak">0</b><span>day streak</span></div>
+      </header>
+
+      <div id="study-area">
+        <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+        <div id="card" class="card" role="button" tabindex="0" aria-label="Flashcard. Tap to reveal the answer.">
+          <span class="tag" id="card-tag"></span>
+          <div id="face-front" class="front"></div>
+          <div id="face-back" class="back" hidden></div>
+          <span class="hint" id="card-hint">Tap to reveal</span>
+        </div>
+
+        <div class="row">
+          <button id="btn-speak" class="ghost" type="button" aria-label="Listen to pronunciation">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            Listen
+          </button>
+        </div>
+
+        <div id="answer-row" class="answers" hidden>
+          <button id="btn-again" class="again" type="button">Again</button>
+          <button id="btn-good" class="good" type="button">Got it</button>
+        </div>
+      </div>
+
+      <div id="done-area" class="done" hidden>
+        <div class="done-mark">完</div>
+        <h2>All done for now</h2>
+        <p id="done-text"></p>
+        <button id="btn-extra" class="primary" type="button">Practice 10 more</button>
+      </div>
+    </section>
+
+    <!-- CARDS -->
+    <section id="view-cards" class="view">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search cards" autocomplete="off">
+        <button id="btn-add" class="primary small" type="button">+ Add</button>
+      </div>
+      <select id="cat" aria-label="Filter by category"></select>
+      <p id="count" class="muted"></p>
+      <ul id="list" class="list"></ul>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="view">
+      <h2>Settings</h2>
+
+      <label class="field">
+        <span>Card front shows</span>
+        <select id="set-front">
+          <option value="hanzi">Chinese (汉字) → guess the meaning</option>
+          <option value="english">English → guess the Chinese</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>New cards per day</span>
+        <select id="set-new">
+          <option>5</option><option>10</option><option>15</option><option>20</option><option>30</option>
+        </select>
+      </label>
+
+      <label class="check">
+        <input id="set-speak" type="checkbox">
+        <span>Say the word aloud when the answer is revealed</span>
+      </label>
+
+      <button id="btn-install" class="primary" type="button" hidden>Install app</button>
+
+      <hr>
+      <button id="btn-reset" class="danger" type="button">Reset all progress</button>
+      <p class="muted small-text">Your progress and added cards are saved on this device only. If you hear no sound, install a Chinese voice in Android Settings → System → Languages → Text-to-speech.</p>
+    </section>
+  </main>
+
+  <nav id="tabs">
+    <button data-view="study" class="on" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M8 10h8M8 14h5"/></svg>
+      Study
+    </button>
+    <button data-view="cards" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
+      Cards
+    </button>
+    <button data-view="settings" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      Settings
+    </button>
+  </nav>
+
+  <dialog id="dlg">
+    <form method="dialog" id="add-form">
+      <h3>Add a card</h3>
+      <label class="field"><span>Chinese</span><input id="f-hanzi" required maxlength="20" lang="zh" autocomplete="off"></label>
+      <label class="field"><span>Pinyin</span><input id="f-pinyin" required maxlength="60" autocomplete="off" autocapitalize="none"></label>
+      <label class="field"><span>Meaning</span><input id="f-english" required maxlength="80" autocomplete="off"></label>
+      <div class="dlg-actions">
+        <button value="cancel" type="button" id="f-cancel" class="ghost">Cancel</button>
+        <button value="ok" class="primary" type="submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="words.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

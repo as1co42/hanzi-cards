@@ -1,0 +1,18 @@
+{
+  "name": "hanzi-cards",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chinese flashcards with spaced repetition (Android app via Capacitor)",
+  "scripts": {
+    "sync": "cap sync android",
+    "open": "cap open android",
+    "apk": "cap sync android && cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/core": "^8.6.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.2"
+  }
+}

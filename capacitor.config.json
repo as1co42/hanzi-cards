@@ -1,0 +1,9 @@
+{
+  "appId": "app.hanzicards",
+  "appName": "Hanzi Cards",
+  "webDir": "www",
+  "backgroundColor": "#faf6ef",
+  "android": {
+    "allowMixedContent": false
+  }
+}
